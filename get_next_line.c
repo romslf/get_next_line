@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 13:36:14 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/05 19:29:06 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/06 16:11:58 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,17 +16,24 @@
 int	get_next_line(int fd, char **line)
 {
     int         readedCnt;
-	int			linesCnt;
-	char		*tmp;
     static char *buffer;
 
+	// Init
+	readedCnt = 0;
     if (!(buffer = malloc(sizeof(char) * BUFFER_SIZE + 1)))
         return (-1);
-	readedCnt = read(fd, buffer, BUFFER_SIZE);
-	linesCnt = count_lines(buffer);
-    
+	
+	// Buffer contain line(s)
+	if (contain_line(buffer))
+	{
+		buffer = remove_line_from_buff(buffer, line);
+		return (1);
+	}
+	// Need to read
+    readedCnt = read(fd, buffer, BUFFER_SIZE);
 	if (readedCnt == BUFFER_SIZE)
     {
+		buffer = remove_line_from_buff(buffer, line);
         return (1);
     }
     else if (readedCnt < BUFFER_SIZE && readedCnt > -1)
@@ -37,8 +44,13 @@ int	get_next_line(int fd, char **line)
 
 int main()
 {
+	printf("Start\n");
     const int fd = open("file.txt", O_RDONLY);
     char *str;
     for (int i; i < 20; i++)
-        printf("%d\n", get_next_line(fd, &str));
+	{
+        if (get_next_line(fd, &str))
+			printf("Readed: %s\n", str);
+	}
+	printf("Done\n");
 }
