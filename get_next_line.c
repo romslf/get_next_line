@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 13:36:14 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/06 16:11:58 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/08 16:19:41 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,7 +44,7 @@ int	get_next_line(int fd, char **line)
 
 int main()
 {
-	printf("Start\n");
+	printf("1 - Start\n");
     const int fd = open("file.txt", O_RDONLY);
     char *str;
     for (int i; i < 20; i++)
