@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   get_next_line.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: romainlaforgue <romainlaforgue@student.    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 13:36:14 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/08 16:19:41 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 16:21:19 by romainlafor ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,42 +15,46 @@
 
 int	get_next_line(int fd, char **line)
 {
-    int         readedCnt;
-    static char *buffer;
+    char		*buffer;
+	static char	*tmp;
+	int			readCnt;
 
-	// Init
-	readedCnt = 0;
-    if (!(buffer = malloc(sizeof(char) * BUFFER_SIZE + 1)))
+	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
         return (-1);
-	
-	// Buffer contain line(s)
-	if (contain_line(buffer))
+	if ((readCnt = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		buffer = remove_line_from_buff(buffer, line);
+		add_to_tmp(&tmp, buffer, readCnt);
+		if (!ft_linelen(tmp))
+			return(get_next_line(fd, line));
+		else
+		{
+			ft_extract(line, &tmp);
+			return (1);
+		}
+	}
+	else if (readCnt < BUFFER_SIZE)
+	{
+		ft_extract(line, &tmp);
+		if (!tmp || !ft_strlen(tmp))
+			return (0);
 		return (1);
 	}
-	// Need to read
-    readedCnt = read(fd, buffer, BUFFER_SIZE);
-	if (readedCnt == BUFFER_SIZE)
-    {
-		buffer = remove_line_from_buff(buffer, line);
-        return (1);
-    }
-    else if (readedCnt < BUFFER_SIZE && readedCnt > -1)
-        return (0);
-    else
-        return (-1);
+	return (-1);
+}
+
+void	ft_extract(char **line, char **tmp)
+{
+	*line = extract_first_line(*tmp);
+	*tmp = extract_last_lines(*tmp);
 }
 
 int main()
 {
-	printf("1 - Start\n");
     const int fd = open("file.txt", O_RDONLY);
-    char *str;
-    for (int i; i < 20; i++)
-	{
-        if (get_next_line(fd, &str))
-			printf("Readed: %s\n", str);
-	}
-	printf("Done\n");
+    char *st;
+	char **str = &st;
+	unsigned long i = 1;
+    while (get_next_line(fd, str) == 1)
+		printf("N°%zu: >%s< \n", i++, st);
+	printf("N°%zu: >%s< \n", i++, st);
 }

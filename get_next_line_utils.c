@@ -3,74 +3,125 @@
 /*                                                              /             */
 /*   get_next_line_utils.c                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: romainlaforgue <romainlaforgue@student.    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 15:54:39 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/08 16:27:21 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 16:10:38 by romainlafor ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*remove_line_from_buff(char *buffer, char **line)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	x;
-	size_t	len;
-	printf("%s\n", "4 - Remove line from buffer start");
-	len = line_len(buffer);
-	if (!(*line = malloc(sizeof(char) * (len + 1))))
+	char	*res;
+
+	i = 0;
+	x = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(res = malloc(sizeof(char) * (ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1))))
+		return (NULL);
+	while (s1[i])
+		res[x++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		res[x++] = s2[i++];
+	res[x] = '\0';
+	return (res);
+}
+
+void add_to_tmp(char **tmp, char *str, int readCnt)
+{
+	size_t	i;
+	
+	i = 0;
+	str[readCnt] = '\0';
+	if (!*tmp)
+	{
+		*tmp = str;
+	}
+	else
+		*tmp = ft_strjoin(*tmp, str);
+}
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned char		chr;
+	const unsigned char	*str;
+	
+	if (s && n)
+	{
+		str = s;
+		chr = (unsigned char)c;
+		while (n--)
+		{
+			if (*str == chr)
+			{
+				str++;
+				return ((void *)str);
+			}
+			str++;
+		}
+		if ((char)c == '\0')
+			return ((void *)str);
+	}
+	return (NULL);
+}
+
+char	*extract_first_line(char *str)
+{
+	size_t	i;
+	char	*res;
+	int		len;
+
+	len = ft_linelen(str);
+	if (len == 0)
+	 	len = ft_strlen(str);
+	if (!(res = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	i = 0;
-	printf("%s\n", "7 - Filling line");
-	while (buffer[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
-		*line[i] = buffer[i];
+		res[i] = str[i];
 		i++;
 	}
-	i++;
-	x = 0;
-	printf("%s\n", "8 - Removing line from buffer");
-	while (buffer[i])
-	{
-		buffer[x] = buffer[i];
-		x++;
-		i++;
-	}
-	printf("%s\n", "9 - Filling end of buffer");
-	while (buffer[x++])
-		buffer[x] = '\0';
-	printf("%s\n", "10 - Remove line from buffer done.");
-	return (buffer);
+	res[i] = '\0';
+	return (res);
 }
 
-size_t	contain_line(char *str)
+char	*extract_last_lines(char *str)
+{
+	char *res;
+
+	res = ft_memchr(str, '\n', ft_strlen(str));
+	return (res);
+}
+
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
-	printf("%s\n", "2 - Contain line");
+	
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+size_t	ft_linelen(char *str)
+{
+	size_t	i;
+
 	i = 0;
 	while (str[i++])
-		if (str[i] == '\n')
-			return (1);
-	printf("%s\n", "3 - Contain line done");
-	return (0);
-}
-
-size_t	line_len(char *line)
-{
-	size_t	i;
-	printf("%s\n", "5 - Line len start");
-	i = 0;
-	while (line[i])
 	{
-		if (line[i] == '\n')
-		{
-			printf("%s %zu\n", "6 - Line len done", i);
-			return (i);
-		}
-		i++;
+		if (str[i] == '\n')
+			return (i + 1);
 	}
-	printf("%s %zu\n", "6 - Line len done", i);
 	return (0);
 }
