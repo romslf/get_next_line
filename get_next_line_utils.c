@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   get_next_line_utils.c                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: romainlaforgue <romainlaforgue@student.    +:+   +:    +:    +:+     */
+/*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 15:54:39 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/19 16:10:38 by romainlafor ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 20:36:12 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,20 +34,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-void add_to_tmp(char **tmp, char *str, int readCnt)
-{
-	size_t	i;
-	
-	i = 0;
-	str[readCnt] = '\0';
-	if (!*tmp)
-	{
-		*tmp = str;
-	}
-	else
-		*tmp = ft_strjoin(*tmp, str);
-}
-
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	unsigned char		chr;
@@ -70,35 +56,6 @@ void	*ft_memchr(const void *s, int c, size_t n)
 			return ((void *)str);
 	}
 	return (NULL);
-}
-
-char	*extract_first_line(char *str)
-{
-	size_t	i;
-	char	*res;
-	int		len;
-
-	len = ft_linelen(str);
-	if (len == 0)
-	 	len = ft_strlen(str);
-	if (!(res = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-char	*extract_last_lines(char *str)
-{
-	char *res;
-
-	res = ft_memchr(str, '\n', ft_strlen(str));
-	return (res);
 }
 
 size_t	ft_strlen(char *str)
