@@ -1,14 +1,14 @@
 # get_next_line
-## Description
+### Description
 42 Projet get_next_line
 
--Une fonction qui retourne une ligne lue depuis un file descriptor, sans le retour à la ligne.
--Des appels successifs à get_next_line vous permet de
+- Une fonction qui retourne une ligne lue depuis un file descriptor, sans le retour à la ligne.
+- Des appels successifs à get_next_line vous permet de
 lire l’entièreté du texte disponible sur le file descriptor, une ligne à la fois, jusqu’au
 EOF.
 
-## Manuel
-Prototype int get_next_line(int fd, char **line);
+### Manuel
+- Prototype int get_next_line(int fd, char **line);
 
 - Paramètres:
   -#1. le file descriptor sur lequel lire
