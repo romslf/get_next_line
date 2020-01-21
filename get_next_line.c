@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 13:36:14 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:47:43 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 18:36:37 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,13 +86,4 @@ int		get_next_line(int fd, char **line)
 	if (!tmp || !ft_strlen(tmp))
 		return (0);
 	return (1);
-}
-
-int	main()
-{
-	int fd = open("file.txt", O_RDONLY);
-	char *line;
-	while (get_next_line(fd, &line))
-		printf("%s\n", line);
-	printf("%s\n", line);
 }
