@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 13:36:14 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 10:50:20 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 17:47:43 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,12 +48,11 @@ void	ft_extract(char **line, char **tmp)
 	*tmp = extract_last_lines(*tmp);
 }
 
-void	add_to_tmp(char **tmp, char *str, int readCnt)
+void	add_to_tmp(char **tmp, char *str)
 {
 	size_t	i;
 	
 	i = 0;
-	str[readCnt] = '\0';
 	if (!*tmp)
 	{
 		*tmp = str;
@@ -74,7 +73,8 @@ int		get_next_line(int fd, char **line)
         return (-1);
 	if ((readCnt = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		add_to_tmp(&tmp, buffer, readCnt);
+		buffer[readCnt] = '\0';
+		add_to_tmp(&tmp, buffer);
 		if (!ft_linelen(tmp))
 			return(get_next_line(fd, line));
 		ft_extract(line, &tmp);
@@ -86,4 +86,13 @@ int		get_next_line(int fd, char **line)
 	if (!tmp || !ft_strlen(tmp))
 		return (0);
 	return (1);
+}
+
+int	main()
+{
+	int fd = open("file.txt", O_RDONLY);
+	char *line;
+	while (get_next_line(fd, &line))
+		printf("%s\n", line);
+	printf("%s\n", line);
 }

@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/11 15:56:46 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/19 20:35:58 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 17:47:48 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ char	*extract_last_lines(char *str);
 char	*extract_first_line(char *str);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	ft_extract(char **line, char **tmp);
-void	add_to_tmp(char **tmp, char *str, int readCnt);
+void	add_to_tmp(char **tmp, char *str);
 size_t	ft_linelen(char *str);
 size_t	ft_strlen(char *str);
 
