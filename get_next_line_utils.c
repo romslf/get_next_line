@@ -34,10 +34,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_memchr(char *s, int c, size_t n)
 {
 	unsigned char		chr;
-	const unsigned char	*str;
+	char	*str;
 	
 	if (s && n)
 	{
@@ -48,12 +48,12 @@ void	*ft_memchr(const void *s, int c, size_t n)
 			if (*str == chr)
 			{
 				str++;
-				return ((void *)str);
+				return (str);
 			}
 			str++;
 		}
 		if ((char)c == '\0')
-			return ((void *)str);
+			return (str);
 	}
 	return (NULL);
 }
@@ -75,10 +75,13 @@ size_t	ft_linelen(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i++])
+	if (str[0] == '\n')
+		return (-1);
+	while (str[i])
 	{
 		if (str[i] == '\n')
-			return (i + 1);
+			return (i);
+		i++;
 	}
 	return (0);
 }

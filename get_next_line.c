@@ -13,52 +13,53 @@
 
 #include "get_next_line.h"
 
-char	*extract_first_line(char *str)
+char        *ft_substr(char *s, unsigned int start, size_t len)
+{
+    size_t  count;
+    size_t  size;
+    char    *tab;
+    count = 0;
+    if (!s)
+        return (NULL);
+    if (ft_strlen(s) < start)
+        return (ft_calloc(1, 1));
+    size = ft_strlen(s + start);
+    if (size < len)
+        len = size;
+    if (!(tab = (char *)malloc((len + 1) * sizeof(char))))
+        return (NULL);
+    while (count < len)
+    {
+        tab[count] = s[start + count];
+        count++;
+    }
+    tab[count] = '\0';
+    return (tab);
+}
+
+void	*ft_calloc(size_t count, size_t size)
 {
 	size_t	i;
-	char	*res;
-	int		len;
+	char	*p;
 
-	len = ft_linelen(str);
-	if (len == 0)
-	 	len = ft_strlen(str);
-	if (!(res = malloc(sizeof(char) * (len + 1))))
+	i = 0;
+	if (!(p = malloc(count * size)))
 		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (size--)
+		p[size] = 0;
+	return (p);
+}
+
+int		ft_extract(char **line, char **tmp, int index)
+{
+	if (!tmp)
 	{
-		res[i] = str[i];
-		i++;
+		*line = ft_calloc(1, sizeof(char));
+		return (1);
 	}
-	res[i] = '\0';
-	return (res);
-}
-
-char	*extract_last_lines(char *str)
-{
-	char *res;
-
-	res = ft_memchr(str, '\n', ft_strlen(str));
-	return (res);
-}
-
-void	ft_extract(char **line, char **tmp)
-{
-	*line = extract_first_line(*tmp);
-	*tmp = extract_last_lines(*tmp);
-}
-
-void	add_to_tmp(char **tmp, char *str)
-{
-	size_t	i;
-	
-	i = 0;
-	if (!*tmp)
-	{
-		*tmp = str;
-	}
-	else
-		*tmp = ft_strjoin(*tmp, str);
+	*line = ft_substr(*tmp, 0, index);
+	*tmp = ft_substr(*tmp, index + 1, ft_strlen(*tmp) - index);
+	return (1);
 }
 
 int		get_next_line(int fd, char **line)
@@ -66,24 +67,57 @@ int		get_next_line(int fd, char **line)
     char		*buffer;
 	static char	*tmp;
 	int			readCnt;
+	int			index;
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0)
-		return (-1);
+	if (!line || BUFFER_SIZE <= 0 || (readCnt = read(fd, 0, 0)) < 0)
+			return (-1);
 	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-        return (-1);
-	if ((readCnt = read(fd, buffer, BUFFER_SIZE)) > 0)
+		return (-1);
+	if (!tmp)
+	{
+		if (!(tmp = malloc(1)))
+			return (-1);
+		tmp[0] = '\0';
+	}
+	readCnt = 1;
+	while (!(index = ft_linelen(tmp)) && (readCnt = read(fd, buffer, BUFFER_SIZE)) != 0)
 	{
 		buffer[readCnt] = '\0';
-		add_to_tmp(&tmp, buffer);
-		if (!ft_linelen(tmp))
-			return(get_next_line(fd, line));
-		ft_extract(line, &tmp);
-		return (1);
+		tmp = ft_strjoin(tmp, buffer);
 	}
-	else if (readCnt < 0)
-		return (-1);
-	ft_extract(line, &tmp);
-	if (!tmp || !ft_strlen(tmp))
+	if (index < 0)
+		index = 0;
+	if (readCnt == 0)
+	{
+		*line = ft_substr(tmp, 0, ft_strlen(tmp));
+		tmp = NULL;
 		return (0);
-	return (1);
+	}
+	
+	return (ft_extract(line, &tmp, index));
 }
+
+// char	*extract_last_lines(char *str)
+// {
+// 	char *res;
+
+// 	res = ft_memchr(str, '\n', ft_strlen(str));
+// 	return (res);
+// }
+
+// void	ft_extract(char **line, char **tmp)
+// {
+// 	*line = ft_substr(*tmp, 0, ft_linelen(*tmp) - 1);
+// 	*tmp = extract_last_lines(*tmp);
+// }
+
+// void	add_to_tmp(char **tmp, char *str)
+// {
+// 	// size_t	i;
+	
+// 	// i = 0;
+// 	// if (!*tmp)
+// 	// 	*tmp = str;
+// 	// else
+// 	*tmp = ft_strjoin(*tmp, str);
+// }

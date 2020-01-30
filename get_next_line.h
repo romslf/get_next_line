@@ -24,11 +24,12 @@
 int		get_next_line(int fd, char **line);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*extract_last_lines(char *str);
-char	*extract_first_line(char *str);
-void	*ft_memchr(const void *s, int c, size_t n);
-void	ft_extract(char **line, char **tmp);
+char	*extract_first_line(char const *s, unsigned int start, size_t len);
+char	*ft_memchr(char *s, int c, size_t n);
+int 	ft_extract(char **line, char **tmp, int index);
 void	add_to_tmp(char **tmp, char *str);
 size_t	ft_linelen(char *str);
 size_t	ft_strlen(char *str);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
