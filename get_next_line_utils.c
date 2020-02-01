@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 15:54:39 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 16:18:01 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 18:03:08 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,8 @@ size_t	ft_linelen(char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	if (str[0] == '\n')
 		return (-1);
 	while (str[i])
