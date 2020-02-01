@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 15:54:39 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/19 20:36:12 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 18:03:08 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,12 +21,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	x = 0;
-	if (!s1 || !s2)
+	if (!s1)
+		return(ft_substr((char *)s2, 0, ft_linelen((char *)s2)));
+	if (!s2)
 		return (NULL);
 	if (!(res = malloc(sizeof(char) * (ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1))))
 		return (NULL);
 	while (s1[i])
 		res[x++] = s1[i++];
+	free((void *)s1);
 	i = 0;
 	while (s2[i])
 		res[x++] = s2[i++];
@@ -75,6 +78,8 @@ size_t	ft_linelen(char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	if (str[0] == '\n')
 		return (-1);
 	while (str[i])

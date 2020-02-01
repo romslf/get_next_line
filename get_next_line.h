@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/11 15:56:46 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:47:48 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 17:28:00 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,5 +31,6 @@ void	add_to_tmp(char **tmp, char *str);
 size_t	ft_linelen(char *str);
 size_t	ft_strlen(char *str);
 void	*ft_calloc(size_t count, size_t size);
+char    *ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
