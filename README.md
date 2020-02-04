@@ -8,7 +8,7 @@ lire l’entièreté du texte disponible sur le file descriptor, une ligne à la
 EOF.
 
 ### Manuel
-- Prototype int get_next_line(int fd, char **line);
+- Prototype long get_next_line(long fd, char **line);
 
 - Paramètres:
   -#1. le file descriptor sur lequel lire
@@ -16,7 +16,7 @@ EOF.
 
 - Valeur de retour:
   - 1 : Une ligne a été lue
-  - 0 : La fin de fichier a été atteinte
+  - 0 : La fin de fichier a été attelonge
   - -1 : Une erreur est survenue
 
 - Compilation: 

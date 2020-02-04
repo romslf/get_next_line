@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/23 15:54:39 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 19:59:22 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 15:19:07 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char	*ft_memchr(char *s, int c, size_t n)
+char	*ft_memchr(char *s, long c, size_t n)
 {
 	unsigned char	chr;
 	char			*str;
@@ -60,6 +60,19 @@ char	*ft_memchr(char *s, int c, size_t n)
 			return (str);
 	}
 	return (NULL);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t	i;
+	char	*p;
+
+	i = 0;
+	if (!(p = malloc(count * size)))
+		return (NULL);
+	while (size--)
+		p[size] = 0;
+	return (p);
 }
 
 size_t	ft_strlen(char *str)
