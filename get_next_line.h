@@ -6,7 +6,7 @@
 /*   By: rolaforg <rolaforg@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/11 15:56:46 by rolaforg     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/04 15:19:49 by rolaforg    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 15:38:14 by rolaforg    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,6 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
